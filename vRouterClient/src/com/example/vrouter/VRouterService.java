@@ -186,7 +186,7 @@ public class VRouterService extends VpnService implements Handler.Callback, Runn
 				            while ((length = in.read(packet.array())) > 0) {
 				                // Write the outgoing packet to the tunnel.
 				                packet.limit(length);
-				                
+				                Log.d("length",Integer.toString(length));				                
 				                Log.d(TAG, "Outgoing packet written to the tunnel");
 				                //debugPacket(packet);
 			                    
@@ -202,6 +202,7 @@ public class VRouterService extends VpnService implements Handler.Callback, Runn
 				                ByteBuffer duplicateIPHeader = ByteBuffer.allocate(2048);
 			                	HelpTools.debugPacket(packet, pkt, duplicateIPHeader);
 			                	Log.d(TAG, "Pkt info: "+pkt.toString());
+			                	Log.d(TAG,"Protocol:"+ HelpTools.packetProtocol(packet));
 			                	
 			                	if (pkt.pktType == 6) { //TCP
 			                		Log.d(TAG, "got TCP packet!!!");

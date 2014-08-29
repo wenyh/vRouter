@@ -123,7 +123,7 @@ public class HelpTools {
       sum = sum & 0xFFFF;
       return sum;
     }
-    
+
     public static void debugPacket(ByteBuffer packet, IPPacket myIPpkt, ByteBuffer dupHeader)
     {
     	// Reference: http://en.wikipedia.org/wiki/IPv4
@@ -162,7 +162,7 @@ public class HelpTools {
         protocol = buffer;
         dupHeader.put((byte)buffer);
         
-        //Log.d(TAG, "Protocol:"+buffer);
+        Log.d(TAG, "Protocol_in_dup:"+buffer);
 
         status += "  Protocol:"+buffer;
         myIPpkt.pktType = buffer;
@@ -242,4 +242,22 @@ public class HelpTools {
         //printIPPacket(dupHeader);
     }
 
+    /**
+     * return the protocol of packet, TCP is 6, UDP is 17.
+     * @param packet
+     * @return protocol (TCP or UDP or something else)
+     */
+    public static int packetProtocol(ByteBuffer packet){
+    	int protocol;
+
+    	// the protocol is located at the 10th byte of IPv4 Header.
+    	packet.clear();
+    	
+    	packet.getInt();
+    	packet.getInt();
+    	packet.get();
+    	protocol=(int)packet.get();  	
+    	
+    	return protocol;
+    }
 }
